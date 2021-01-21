@@ -66,11 +66,22 @@ namespace WPF_AccessibleItemsControl
 
             // Barker: Add some of my own experiments here...
 
-            // Provide a localized control type which will be announced by a screen reader,
-            // rather than having the item said to be a "dataitem".
+            // Provide a localized control type which can be announced by a screen reader if
+            // the screen reader chooses to announce it instead of something like "dataitem".
             protected override string GetLocalizedControlTypeCore()
             {
                 return "Bird"; // TODO: Localize this!
+            }
+
+            protected override List<AutomationPeer> GetChildrenCore()
+            {
+                var children = base.GetChildrenCore();
+
+                // Remove the first child, because the related information is
+                // already exposed through the name of the item;
+                children.RemoveAt(0);
+
+                return children;
             }
         }
     }
